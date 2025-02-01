@@ -1,0 +1,2 @@
+files/bookpage/batman-the-dark-knight-returns.pdf filter=lfs diff=lfs merge=lfs -text
+files.zip filter=lfs diff=lfs merge=lfs -text

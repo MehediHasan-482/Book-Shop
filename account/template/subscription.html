@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="subscription-container">
+    <h2>Subscription</h2>
+    {% if message %}
+        <p>{{ message }}</p>
+    {% else %}
+        <p>Select a subscription plan:</p>
+        <form method="post">
+            {% csrf_token %}
+            <div>
+                <input type="radio" id="silver" name="subscription_type" value="silver">
+                <label for="silver">Silver - 3 months</label>
+            </div>
+            <div>
+                <input type="radio" id="gold" name="subscription_type" value="gold">
+                <label for="gold">Gold - 6 months</label>
+            </div>
+            <div>
+                <input type="radio" id="platinum" name="subscription_type" value="platinum">
+                <label for="platinum">Platinum - 12 months</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Subscribe</button>
+        </form>
+    {% endif %}
+</div>
+{% endblock %}

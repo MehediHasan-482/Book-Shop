@@ -1,0 +1,114 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% block container %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Profile</h2>
+
+    <!-- Static Profile Display -->
+    <div class="profile-info mb-5 p-4 border rounded shadow-sm" style="background-color: #f8f9fa;">
+        <h3 class="mb-4">Profile Information</h3>
+        <p><strong>Full Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Username:</strong> {{ user.username }}</p>
+    </div>
+
+    <!-- Profile Update Form -->
+    <div class="card p-4 mb-5 shadow-sm">
+        <h3 class="mb-4">Update Profile</h3>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="update_profile">
+            
+            <div class="form-group mb-3">
+                <label for="name">Full Name</label>
+                <input type="text" class="form-control" id="name" name="name" value="{{ user.first_name }}" required>
+            </div>
+            <div class="form-group mb-3">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}" required>
+            </div>
+            <div class="form-group mb-3">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" name="username" value="{{ user.username }}" required>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
+        </form>
+    </div>
+
+    <!-- Password Change Form -->
+    <div class="card p-4 shadow-sm">
+        <h3 class="mb-4">Change Password</h3>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <input type="hidden" name="change_password">
+            
+            <div class="form-group mb-3">
+                <label for="current_password">Current Password</label>
+                <input type="password" class="form-control" id="current_password" name="current_password" required>
+            </div>
+            <div class="form-group mb-3">
+                <label for="new_password">New Password</label>
+                <input type="password" class="form-control" id="new_password" name="new_password" required>
+            </div>
+            <div class="form-group mb-4">
+                <label for="confirm_password">Confirm New Password</label>
+                <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+            </div>
+            <button type="submit" class="btn btn-warning mt-3">Change Password</button>
+        </form>
+    </div>
+</div>
+
+<style>
+    /* Additional Styling for Forms and Buttons */
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+
+    .btn-warning {
+        background-color: #ffc107;
+        border-color: #ffc107;
+    }
+
+    .btn-warning:hover {
+        background-color: #e0a800;
+        border-color: #e0a800;
+    }
+
+    /* Style for Profile Cards */
+    .card {
+        background-color: #ffffff;
+        border-radius: 8px;
+    }
+
+    .profile-info {
+        background-color: #f0f8ff;
+        border-radius: 8px;
+    }
+
+    /* Style for Input Fields */
+    .form-group input {
+        border-radius: 5px;
+    }
+
+    /* Add spacing for better layout */
+    .mb-4 {
+        margin-bottom: 1.5rem;
+    }
+
+    .mb-5 {
+        margin-bottom: 3rem;
+    }
+
+    .mt-3 {
+        margin-top: 1rem;
+    }
+</style>
+
+{% endblock %}

@@ -1,0 +1,139 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% block container %}
+<style>
+.subscription-container {
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 500px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.subscription-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.plan {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+.plan:hover {
+    border-color: #007bff;
+}
+.plan input[type="radio"] {
+    accent-color: #007bff;
+}
+.plan-details {
+    display: flex;
+    flex-direction: column;
+}
+.plan-title {
+    font-size: 16px;
+    font-weight: bold;
+}
+.plan-price {
+    color: #007bff;
+    font-size: 14px;
+    font-weight: bold;
+}
+.alert {
+    text-align: center;
+    border-radius: 5px;
+    padding: 15px;
+}
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+.alert-info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
+.subscribe-btn {
+    background-color: #007bff;
+    border: none;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+}
+.subscribe-btn:hover {
+    background-color: #0056b3;
+    cursor: pointer;
+}
+button.btn-primary:hover {
+    background-color: #0056b3;
+    cursor: pointer;
+}
+.account-number-field {
+    margin-top: 20px;
+}
+</style>
+
+<div class="subscription-container">
+    <h2>Subscription</h2>
+    
+    <!-- Display any messages (error or success) -->
+    {% if messages %}
+        <div class="alert">
+            {% for message in messages %}
+                <div class="alert-info">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if message %}
+        <div class="alert alert-success">
+            <p>{{ message }}</p>
+            <p>Remaining Days: <strong>{{ subscription_remaining_days }}</strong></p>
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            <p>You are not subscribed. Choose a plan below:</p>
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            <div class="subscription-bar">
+                <label class="plan">
+                    <input type="radio" name="subscription_type" value="silver" required>
+                    <div class="plan-details">
+                        <p class="plan-title">Silver - 3 months</p>
+                        <p class="plan-price">50 TK</p>
+                    </div>
+                </label>
+                <label class="plan">
+                    <input type="radio" name="subscription_type" value="gold">
+                    <div class="plan-details">
+                        <p class="plan-title">Gold - 6 months</p>
+                        <p class="plan-price">90 TK</p>
+                    </div>
+                </label>
+                <label class="plan">
+                    <input type="radio" name="subscription_type" value="platinum">
+                    <div class="plan-details">
+                        <p class="plan-title">Platinum - 12 months</p>
+                        <p class="plan-price">150 TK</p>
+                    </div>
+                </label>
+            </div>
+
+            <!-- Account number field -->
+            <div class="account-number-field">
+                <label for="account_number">Account Number (Bkash/Rocket):</label>
+                <input type="text" id="account_number" name="account_number" class="form-control" placeholder="Enter Bkash/Rocket account" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-3">Subscribe</button>
+        </form>
+    {% endif %}
+</div>
+{% endblock %}
